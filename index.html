@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise 🎉</title>
+<style>
+body {margin:0; font-family:Arial; background:#121212; color:white; display:flex; justify-content:center; align-items:center; min-height:100vh;}
+.container { width:90%; max-width:550px; text-align:center; }
+input, button { width:80%; padding:12px; margin:10px; border-radius:10px; border:none;}
+button { background:#2563eb; color:white; cursor:pointer; font-weight:bold;}
+.hidden { display:none; }
+img { width:100%; border-radius:12px; }
+.confetti { position:fixed; width:100%; height:100%; pointer-events:none; top:0; left:0;}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- PAGE 0: Hacked -->
+<div id="p0">
+<h2>⚠️ Your phone got hacked</h2>
+<button onclick="next0()">Continue →</button>
+</div>
+
+<!-- PAGE 1: Just kidding -->
+<div id="p1" class="hidden">
+<h2>😂 Just kidding!</h2>
+<p>Let’s start…</p>
+<button onclick="next1()">Start →</button>
+</div>
+
+<!-- INTRO -->
+<div id="p2" class="hidden">
+<p>
+Hello Atoki!!<br>
+Happy 19th birthday<br>
+I’m so sorry I’m broke and idh anything to give you<br>
+More over -Distance-<br>
+Anyways hope you enjoy this little virtual gift<br><br>
+Ps: be honest and ignore the flaws<br>
+After all I’m not a coder
+</p>
+<button onclick="toName()">→ Next</button>
+</div>
+
+<!-- NAME -->
+<div id="p3" class="hidden">
+<p>Before anything, what is your name?</p>
+<input id="name">
+<button onclick="saveName()">Continue</button>
+</div>
+
+<!-- INTERVIEW -->
+<div id="p4" class="hidden">
+<h2 id="q"></h2>
+<input id="ans">
+<button onclick="nextQ()">Next</button>
+</div>
+
+<!-- PASSWORD PAGE -->
+<div id="pPassword" class="hidden">
+<h2>🔐 Enter Secret Word</h2>
+<p>Enter the password to proceed</p>
+<p><i>Hint: your favorite person… recent 👀</i></p>
+<input id="passwordInput">
+<button onclick="checkPassword()">Enter</button>
+<p id="errorMsg" style="color:red;"></p>
+</div>
+
+<!-- DRIVER LICENSE -->
+<div id="p5" class="hidden">
+<h2>🏎️ LTs Formula 1 Driver’s License</h2>
+<img src="https://img.sanishtech.com/u/98a6052a1114ac8c34b4a50fa04082a0.jpeg">
+<p id="license"></p>
+<button onclick="race()">Start Race →</button>
+</div>
+
+<!-- RACE -->
+<div id="p6" class="hidden">
+<h2>🏁 Race Mode</h2>
+<p>Starting race… (I’m not smart enough to code a real one 😭)</p>
+<button onclick="finishRace()">Next</button>
+</div>
+
+<!-- CONFETTI -->
+<div id="p7" class="hidden">
+<h2>🎉 CONGRATS!</h2>
+<p>You passed! Reason: survived 19 years 😎</p>
+<div id="confetti" class="confetti"></div>
+<button onclick="certificate()">Get Certificate →</button>
+</div>
+
+<!-- CERTIFICATE -->
+<div id="p8" class="hidden">
+<h2>🏆 Certificate</h2>
+<img src="https://img.sanishtech.com/u/2a2d1a4dd53b8a9f548f4288e8b7beef.jpeg">
+<button onclick="drink()">Continue →</button>
+</div>
+
+<!-- DRINK + MUSIC -->
+<div id="p9" class="hidden">
+<h2>🥤 Take a drink</h2>
+<img src="https://img.sanishtech.com/u/f5b692fefa7969da653e892b067a60c7.webp">
+<p>While drinking, play your favorite song 😏</p>
+<button onclick="song()">Play 🎶</button>
+<button onclick="final()">Next →</button>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div id="p10" class="hidden">
+<h2>❤️ Happy Birthday!</h2>
+<p>
+I really hope you’ll have an amazing day filled with laughter and happiness.<br>
+I spent 5 hours making this so ignore flaws 😅<br><br>
+May you always have good health, fun and success.<br>
+Wishing you the best always ❤️
+</p>
+<button onclick="never()">Next →</button>
+</div>
+
+<!-- NEVER FORGET -->
+<div id="p11" class="hidden">
+<h2 style="font-size:32px;">I’ll never let you forget this 😏</h2>
+<img src="https://img.sanishtech.com/u/1f827ad255b85050ea02ec582a40c51a.jpeg">
+<button onclick="last()">Final Surprise →</button>
+</div>
+
+<!-- SPLIT SECOND -->
+<div id="p12" class="hidden" style="position:relative;">
+<img src="https://img.sanishtech.com/u/7d4a0fabd58c04e201ecd122aef64474.jpeg" style="width:100%; height:auto; border-radius:12px;">
+<div style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%); font-size:36px; color:white; font-weight:bold;">
+Happy 19th Birthday!
+</div>
+</div>
+
+</div>
+
+<script>
+// GLOBALS
+let name;
+let q=[
+"Height?",
+"Age?",
+"Weight?",
+"Occupation (write driver, you’ll know soon)",
+"Talent?"
+];
+let a=[],i=0;
+
+// PAGE NAV
+function next0(){p0.classList.add("hidden");p1.classList.remove("hidden");}
+function next1(){p1.classList.add("hidden");p2.classList.remove("hidden");}
+function toName(){p2.classList.add("hidden");p3.classList.remove("hidden");}
+function saveName(){
+  name=document.getElementById("name").value;
+  if(!name)return alert("Enter name 😏");
+  p3.classList.add("hidden");p4.classList.remove("hidden");
+  document.getElementById("q").innerText=q[i];
+}
+
+// INTERVIEW
+function nextQ(){
+  let v=document.getElementById("ans").value;
+  if(!v)return alert("Answer 😏");
+  a.push(v);document.getElementById("ans").value="";
+  i++;
+  if(i<q.length){document.getElementById("q").innerText=q[i];}
+  else{
+    p4.classList.add("hidden");
+    pPassword.classList.remove("hidden");
+  }
+}
+
+// PASSWORD LOGIC
+const correctPassword = "PUT_THE_NAME_HERE"; // <-- Replace with favorite person
+
+function checkPassword(){
+  let input=document.getElementById("passwordInput").value;
+  if(input===correctPassword){
+    pPassword.classList.add("hidden");
+    p5.classList.remove("hidden");
+    license.innerHTML=
+    `Name: ${name}<br>
+     Age: ${a[1]}<br>
+     Height: ${a[0]}<br>
+     Weight: ${a[2]}<br>
+     Occupation: ${a[3]}<br>
+     Talent: ${a[4]}<br>
+     Status: Certified F1 Driver 🏎️`;
+  } else {
+    errorMsg.innerText="❌ Wrong… think again 😏 (Hint: recent 👀)";
+  }
+}
+
+// RACE
+function race(){p5.classList.add("hidden");p6.classList.remove("hidden");}
+function finishRace(){p6.classList.add("hidden");p7.classList.remove("hidden");confetti();}
+
+// CONFETTI
+function confetti(){
+  let conf=document.getElementById("confetti");
+  conf.innerHTML="";
+  for(let i=0;i<100;i++){
+    let s=document.createElement("span");
+    s.style.position="absolute";
+    s.style.width="8px"; s.style.height="8px";
+    s.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*100+"%";
+    conf.appendChild(s);
+  }
+}
+
+// CERTIFICATE + DRINK + MUSIC
+function certificate(){p7.classList.add("hidden");p8.classList.remove("hidden");}
+function drink(){p8.classList.add("hidden");p9.classList.remove("hidden");}
+function song(){window.open("https://youtu.be/xBPC6sn_Piw?si=IlQDkJ8ToqPbFGce");}
+function final(){p9.classList.add("hidden");p10.classList.remove("hidden");}
+function never(){p10.classList.add("hidden");p11.classList.remove("hidden");}
+
+// SPLIT SECOND
+function last(){
+  p11.classList.add("hidden");
+  p12.classList.remove("hidden");
+  setTimeout(()=>{p12.classList.add("hidden");},1000);
+}
+</script>
+
+</body>
+</html>
